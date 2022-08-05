@@ -120,3 +120,10 @@ export const videoData = [
         desc: '14 mil visualizações'
     },
 ]
+
+export const dataComments = [
+    {
+        comment: 'Gostei muito deste post',
+        date: ''
+    },
+]

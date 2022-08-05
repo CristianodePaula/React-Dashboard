@@ -1,7 +1,7 @@
 # YOUTUBE CLONE
 
 Click to watch the video on youtube 
-[![Watch the video](https://user-images.githubusercontent.com/91747232/182988767-c60a66a5-ffe2-435f-b2bc-7ed652e5218c.png)]()
+[![Watch the video](https://user-images.githubusercontent.com/91747232/183116258-0f7edb00-9174-4fd6-b2d7-64a003d2dd84.jpg)]()
 
 ## 🚀 Starting
 
