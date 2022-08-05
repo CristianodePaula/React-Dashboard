@@ -8,8 +8,8 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border-bottom: 1px solid grey; 
-  border-top: 1px solid grey;   
+  border-bottom: 1px solid lightgray; 
+  border-top: 1px solid lightgray;   
 `
 export const KeyMap = styled.div`  
   background: whitesmoke;

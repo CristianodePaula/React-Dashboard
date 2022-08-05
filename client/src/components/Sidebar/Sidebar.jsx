@@ -21,6 +21,7 @@ export const Container = styled.div`
   flex: 1.2;
   height: 90vh;
   overflow-y: scroll;
+  background:  ${({ theme }) => theme.background}
 `
 export const Item = styled.div`
   display: flex;
@@ -50,7 +51,6 @@ export const Sidebar = () => {
 
   return (
     <Container>
-    
       <Item>
         <Icon>
           <HomeIcon />
