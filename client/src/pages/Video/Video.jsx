@@ -83,13 +83,11 @@ const Video = () => {
     <>
       <Container>
         <Wrapper>
-
           <BoxPost>
             <ImgPost src='https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' />
             <SpanKey> #darktecnho #industrial #cyberpunk </SpanKey>
             <Title> Vida de Desenvolvedor </Title>
           </BoxPost>
-
           <BoxInteraction>
             <Item>
               <Span> 200 mil visualizações </Span>
@@ -119,9 +117,7 @@ const Video = () => {
               </Span>
             </Item>
           </BoxInteraction>
-
           <HR />
-
           <BoxUser>
             <WrapperUser>
               <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -140,9 +136,7 @@ const Video = () => {
               veritatis et quasi architecto beatae vitae dicta sunt explicabo.
             </div>
           </BoxUser>
-
           <HR />
-
           <BoxComments>  
           <h3>Comentários</h3>
             <CommentCard/>

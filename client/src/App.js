@@ -6,9 +6,7 @@ import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import styled from 'styled-components';
-//import Sidebar from './components/Sidebar/Sidebar';
 import Topbar from './components/Topbar/Topbar';
-//import Keybar from './components/Keybar/Keybar';
 import Video from './pages/Video/Video'
 
 const Container = styled.div`
@@ -39,19 +37,5 @@ function App() {
     </ThemeProvider>
   )
 }
-//      <Sidebar />  
+
 export default App
-
-
-/*
-     <Routes>
-                <Route path="/">
-                  <Route index element={<Home />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                  <Route path="video">
-                    <Route path=":id" element={<Video />} />
-                  </Route>
-                </Route>
-              </Routes>
-*/
