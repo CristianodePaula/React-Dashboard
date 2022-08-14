@@ -16,6 +16,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SlideshowIcon from '@mui/icons-material/Slideshow'
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.div`
   flex: 1.2;
@@ -51,24 +52,30 @@ export const Sidebar = () => {
 
   return (
     <Container>
+      <Link to='/'>
       <Item>
         <Icon>
           <HomeIcon />
-        </Icon>
+        </Icon> 
         <Text>Início</Text>
       </Item>
+      </Link>
+      <Link to="/trends">
       <Item>
         <Icon>
           <ExploreOutlinedIcon />
         </Icon>
         <Text>Explorar</Text>
       </Item>
+      </Link>
+      <Link to='/subscriptions'>
       <Item>
         <Icon>
           <HomeIcon />
         </Icon>
         <Text>Shorts</Text>
       </Item>
+      </Link>
       <Item>
         <Icon>
           <SubscriptionsOutlinedIcon />
@@ -105,6 +112,7 @@ export const Sidebar = () => {
         Inscrições
       </Title>
       <HR />
+
       <Title>
         Explorar
       </Title>
@@ -147,7 +155,6 @@ export const Sidebar = () => {
         <Text>
         Notícias
         </Text>
-
       </Item>
       <Item>
         <Icon>
@@ -181,7 +188,6 @@ export const Sidebar = () => {
         </Icon>
        <Text>Enviar Feedback</Text>
       </Item>
-   
     </Container>
   )
 }

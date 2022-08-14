@@ -1,42 +1,57 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Keybar from '../../components/Keybar/Keybar'
-import VideoGallery from '../../components/VideoGallery/VideoGallery'
-
+import VideoCard from '../../components/VideoCard/VideoCard'
+import axios from 'axios'
 
 export const Container = styled.div`
   display: flex;  
-  flex: 6;
-  height: 92vh;
-  width: 100vw;
-  overflow: hidden;
   background: ${({ theme }) => theme.background}
 `
 export const Wrapper = styled.div`
-`
-export const Center = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-around;
 `
+export const VideoGallery = styled.div`
+  display: grid;
+  justify-content: center;
+  width: 83.5vw;
+  grid-template-columns: repeat(4, 1fr);
+  overflow-y: scroll;
+  margin-top: 20px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`
+const Home = ({ type }) => {
 
-const Home = () => {
+  const [videos, setVideos] = useState([]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      const res = await axios.get(`/videos/${type}`);
+      setVideos(res.data);
+    };
+    fetchVideos();
+  }, [type]);
+
   return (
     <>
       <Container>
-        <div style={{
-          display: 'flex',
-        }}>
-        <Sidebar />  
+        <Wrapper>
+          <Sidebar />
           <div>
             <Keybar />
-            <VideoGallery />
+            <VideoGallery>
+              {videos.map((video) => (
+                <VideoCard key={video._id} video={video} />
+              ))}
+            </VideoGallery>
           </div>
-        </div>
+        </Wrapper>
       </Container>
     </>
   )
 }
-//       <Sidebar />
+
 export default Home

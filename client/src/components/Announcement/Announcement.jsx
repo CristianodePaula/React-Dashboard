@@ -17,7 +17,6 @@ export const Image = styled.img`
     height: 300px;    
     object-fit: cover;
 `
-
 const Announcement = ({slides}) => {
 
     const [current, setCurrent] = useState(0)

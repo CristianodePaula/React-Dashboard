@@ -8,7 +8,6 @@ export const Container = styled.div`
   text-align: center;
   align-items: center;
   justify-content: center;
- 
 `
 const VideoBar = () => {
   return (

@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Google from "../../img/google.png"
 import Facebook from "../../img/facebook.png"
+import axios from 'axios'
+import { useDispatch } from "react-redux"
+import { loginStart, loginSuccess, loginFailure } from "../../redux/userSlice"
+import { useNavigate } from "react-router-dom"
+import { auth, provider } from "../../resources/Firebase";
+import { signInWithPopup } from "firebase/auth";
+import { async } from "@firebase/util";
 
 const Container = styled.div`
   flex: 6;
@@ -13,17 +20,15 @@ const Container = styled.div`
   background: ${({ theme }) => theme.background};
 `
 export const Wrapper = styled.div`
-height: 450px;
-width: 400px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border: 1px solid black;
-border-radius: 10px;
-
+  height: 450px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
 `
-
 export const BoxSocial = styled.div``
 export const Social = styled.div`
   height: 50px;
@@ -95,15 +100,55 @@ export const Register = styled.span`
     transition: all 0.3s ease-in-out; 
   } 
 `
-
 const Login = () => {
+
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    dispatch(loginStart());
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/signin", { name, password });
+      dispatch(loginSuccess(res.data));
+      navigate("/")
+    } catch (err) {
+      dispatch(loginFailure());
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    dispatch(loginStart());
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        axios
+          .post("/auth/google", {
+            name: result.user.displayName,
+            email: result.user.email,
+            img: result.user.photoURL,
+          })
+          .then((res) => {
+            console.log(res)
+            dispatch(loginSuccess(res.data));
+            navigate("/")
+          });
+      })
+      .catch((error) => {
+        dispatch(loginFailure());
+      });
+  };
 
   return (
     <Container>
       <Wrapper>
       <BoxSocial>
-        <Social style={{ background: 'red' }}>
-          <Image src={Google} />
+        <Social 
+          onClick={signInWithGoogle}
+         style={{ background: 'red' }}
+        >
+          <Image  src={Google} />
           Google
         </Social>
         <Social style={{ background: 'blue' }}>
@@ -114,14 +159,15 @@ const Login = () => {
       <BoxRegister>
             <Form>
               <Input
-                type='email'
-                placeholder="email"
+                placeholder="nome"
+                onChange={(e) => setName(e.target.value)}
               />
               <Input
                 type="password"
                 placeholder="senha"
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              <Button onClick={handleLogin}
               >Entrar
               </Button>
               <Register>

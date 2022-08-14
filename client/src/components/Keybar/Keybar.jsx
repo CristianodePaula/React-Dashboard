@@ -20,16 +20,16 @@ export const KeyMap = styled.div`
 `
 export const KeyName = styled.span`
   padding: 20px;
-` 
+`
 export const Keybar = () => {
   return (
     <Container>
-      {dataKeys.map((keyname, index)=> {
-        return (
-          <KeyMap id={index}>
+      {dataKeys.map((keyname, index) => {
+          return (
+            <KeyMap   key={index}>
               <KeyName> {keyname.nameKey} </KeyName>
-          </KeyMap>
-        )
+            </KeyMap> 
+          )
       })}
     </Container>
   )

@@ -37,3 +37,14 @@ This code is Open Source
 
 ## 🎁 Thanks
 
+
+
+// atualizações
+
+1 anúncios
+2 listar 3 videos mais vistos
+3 comentários recebem réplicas
+4 enviar feedbeck para a empresa
+5 painel de usuário (settings)
+6 painel de administrador
+7 administrador insire anúncios 

@@ -16,12 +16,10 @@ export const SpanComment = styled.span``
 
 export const BoxInteractions = styled.div``
 
-function CommentCard() {
+function Comment() {
     return (
         <Container>
-        
             <div style={{ display: 'flex' }}>
-            
                 <UserImg src='https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' />
                 <div  style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
                     <SpanComment> <b>Beltrano</b> 1 mês </SpanComment>
@@ -34,4 +32,4 @@ function CommentCard() {
     )
 }
 
-export default CommentCard
+export default Comment

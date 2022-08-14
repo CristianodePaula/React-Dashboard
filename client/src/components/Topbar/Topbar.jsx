@@ -9,14 +9,18 @@ import VideoCallIcon from '@mui/icons-material/VideoCall'
 import SettingsBrightnessOutlinedIcon from "@mui/icons-material/SettingsBrightnessOutlined"
 import NotificationsIcon from '@mui/icons-material/Notifications'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Link } from 'react-router-dom'
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux"
+import { logout } from '../../redux/userSlice'
+import axios from 'axios'
 
 export const Container = styled.div`
-    height: 8vh;
-    width: 100vw;
+    height: 9vh;
     display: flex;
     align-items: center;
-    background:  ${({ theme }) => theme.background}
+    background: ${({ theme }) => theme.background}
+
 `
 export const LogoBox = styled.div`
   display: flex;
@@ -55,7 +59,6 @@ export const SIconBox = styled.div`
   justify-content: center;
   cursor: pointer;
 `
-
 export const UserBox = styled.div`
   display: flex;
   align-items: center;
@@ -77,15 +80,27 @@ export const Button = styled.button`
   font-size: 12px;
   margin-left: -30px;
 `
+export const UserMiniBox = styled.div`
+  margin-left: -100px;
+`
+
 export const Topbar = ({ darkMode, setDarkMode }) => {
 
-  const user = false
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logout())
+    navigate('/')
+  }
 
   return (
     <Container>
       <LogoBox>
         <Icon>
-          <MenuIcon />
+          <MenuIcon style={{ marginRight: '20px' }} />
         </Icon>
         <Link to='/'>
           <div
@@ -99,7 +114,6 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
           </div>
         </Link>
       </LogoBox>
-
       <SearchBox >
         <SearchBar
           type='text'
@@ -108,13 +122,10 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
         <Icon>
           <KeyboardIcon style={{ paddingRight: '10px', fontSize: '18px' }} />
         </Icon>
-
         <SIconBox>
           <SearchIcon />
         </SIconBox>
-
       </SearchBox>
-
       <Icon>
         <MicIcon
           style={{
@@ -126,10 +137,9 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
           }}
         />
       </Icon>
-
       <UserBox>
-        {user ? (
-          <>
+        {currentUser ? (
+          <UserMiniBox>
             <Icon>
               <VideoCallIcon />
             </Icon>
@@ -139,8 +149,13 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
             <Icon onClick={() => setDarkMode(!darkMode)}>
               <SettingsBrightnessOutlinedIcon />
             </Icon>
-            <UserImg src='https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' />
-          </>
+            <Icon onClick={handleLogout}>
+              <LogoutIcon/>
+            </Icon>
+            <UserImg src={currentUser.img}  />
+            {currentUser.name}
+          </UserMiniBox>
+          
         ) : (
           <>
             <Link to='login'>
@@ -152,10 +167,12 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
           </>
         )}
       </UserBox>
-
     </Container>
   )
 }
 
+
+//         <UserImg src={currentUser.img}  />
+//'https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
 
 export default Topbar

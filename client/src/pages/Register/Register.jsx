@@ -1,8 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Google from "../../img/google.png"
-import Facebook from "../../img/facebook.png"
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
 
 const Container = styled.div`
   flex: 6;
@@ -13,17 +13,15 @@ const Container = styled.div`
   background: ${({ theme }) => theme.background};
 `
 export const Wrapper = styled.div`
-height: 450px;
-width: 400px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-border: 1px solid black;
-border-radius: 10px;
-
+  height: 450px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
 `
-
 export const BoxSocial = styled.div``
 export const Social = styled.div`
   height: 50px;
@@ -95,8 +93,24 @@ export const RegisterBtn = styled.span`
     transition: all 0.3s ease-in-out; 
   } 
 `
-
 const Register = () => {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate()
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+ 
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/signup", { name, email, password });
+        console.log(res.data)
+        navigate("/login")
+      } catch (err) {
+   
+    }
+  };
 
   return (
     <Container>
@@ -104,18 +118,20 @@ const Register = () => {
       <BoxRegister>
             <Form>
             <Input
-                type='text'
                 placeholder="nome"
+                onChange={(e) => setName(e.target.value)}
                 />
               <Input
                 type='email'
                 placeholder="email"
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Input
                 type="password"
                 placeholder="senha"
+                onChange={(e) => setPassword(e.target.value)}
               />
-              <Button
+              <Button onClick={handleRegister}
               >Cadastrar
               </Button>
               <RegisterBtn>

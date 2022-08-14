@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components'
 import { darkTheme, lightTheme } from "./resources/Theme"
 import Home from './pages/Home/Home'
 import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
-import styled from 'styled-components';
-import Topbar from './components/Topbar/Topbar';
+import styled from 'styled-components'
+import Topbar from './components/Topbar/Topbar'
 import Video from './pages/Video/Video'
 
 const Container = styled.div`
@@ -21,21 +21,27 @@ function App() {
 
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
-        <BrowserRouter>
-          <Container>
+      <BrowserRouter>
+        <Container>
           <Topbar darkMode={darkMode} setDarkMode={setDarkMode} />
-            <Wrapper>
-              <Routes>
-                  <Route path="/"element={<Home />} />
-                  <Route path="login" element={<Login />} />
-                  <Route path="register" element={<Register />} />
-                  <Route path="video:id" element={<Video/>} />
-              </Routes>
-            </Wrapper>
-          </Container>
-        </BrowserRouter>
+          <Wrapper>
+            <Routes>
+              <Route path="/">
+                <Route index element={<Home type="random" />} />
+                <Route path="trends" element={<Home type="trend" />} />
+                <Route path="subscriptions" element={<Home type="sub" />} />
+                <Route path="login" element={<Login />} />
+                <Route path="register" element={<Register />} />
+                <Route path="video">
+                  <Route path=":id" element={<Video />} />
+                </Route>
+              </Route>
+            </Routes>
+          </Wrapper>
+        </Container>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
-
+ 
 export default App
