@@ -1,5 +1,4 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, {useState} from 'react'
 import logo from '../../img/icon.png'
 import MenuIcon from '@mui/icons-material/Menu'
 import KeyboardIcon from '@mui/icons-material/Keyboard'
@@ -13,78 +12,27 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux"
 import { logout } from '../../redux/userSlice'
-import axios from 'axios'
-
-export const Container = styled.div`
-    height: 9vh;
-    display: flex;
-    align-items: center;
-    background: ${({ theme }) => theme.background}
-
-`
-export const LogoBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  margin-right: -30px;
-`
-export const Icon = styled.a`
-  margin-left: 10px; 
-  cursor: pointer;
-`
-export const LogImg = styled.img`
-  height: 30px;
-`
-export const LogoTitle = styled.span`
-  text-transform: uppercase;
-`
-export const SearchBox = styled.div`
-  border: 1px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 200px;
-`
-export const SearchBar = styled.input`
-  width: 35vw;
-  height: 5vh;
-  padding-left: 10px;
-  border: none;
-`
-export const SIconBox = styled.div`
-  border-left: 1px solid silver;
-  width: 50px;
-  height: 33px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`
-export const UserBox = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 20px;
-`
-export const UserImg = styled.img`
-  height: 30px;
-  width: 30px;
-  object-fit: cover;
-  border-radius: 50%;
-  cursor: pointer;
-  margin-left: 15px;
-`
-export const Button = styled.button`
-  height: 30px;
-  width: 120px;
-  display: flex;
-  align-items: center;
-  font-size: 12px;
-  margin-left: -30px;
-`
-export const UserMiniBox = styled.div`
-  margin-left: -100px;
-`
-
+import Settings from '../Settings/Settings'
+//import axios from 'axios'
+import {
+  Container,
+  LogoBox,
+  Icon,
+  LogImg,
+  LogoTitle,
+  SearchBox,
+  SearchBar,
+  SIconBox,
+  UserBox,
+  UserImg,
+  Button,
+  UserMiniBox
+} from './TopbarStyle'
+ 
 export const Topbar = ({ darkMode, setDarkMode }) => {
+
+  const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
 
   const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -114,16 +62,17 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
           </div>
         </Link>
       </LogoBox>
-      <SearchBox >
+      <SearchBox>
         <SearchBar
           type='text'
           placeholder='Pesquisar'
+          onChange={(e) => setQ(e.target.value)}
         />
         <Icon>
           <KeyboardIcon style={{ paddingRight: '10px', fontSize: '18px' }} />
         </Icon>
         <SIconBox>
-          <SearchIcon />
+          <SearchIcon  onClick={()=>navigate(`/search?q=${q}`)}/>
         </SIconBox>
       </SearchBox>
       <Icon>
@@ -140,39 +89,38 @@ export const Topbar = ({ darkMode, setDarkMode }) => {
       <UserBox>
         {currentUser ? (
           <UserMiniBox>
+            <Link to='/studio'>
             <Icon>
-              <VideoCallIcon />
+              <VideoCallIcon/>
             </Icon>
+            </Link>
             <Icon>
               <NotificationsIcon />
             </Icon>
             <Icon onClick={() => setDarkMode(!darkMode)}>
-              <SettingsBrightnessOutlinedIcon />
+            {open && <SettingsBrightnessOutlinedIcon /> }
             </Icon>
             <Icon onClick={handleLogout}>
               <LogoutIcon/>
             </Icon>
             <UserImg src={currentUser.img}  />
-            {currentUser.name}
+           <span>{currentUser.name}</span> 
           </UserMiniBox>
-          
         ) : (
           <>
             <Link to='login'>
-              <Button>
+              <Button onClick={() => setOpen(true)} >
                 <AccountCircleIcon />
                 <p style={{ marginLeft: '10px' }}>Fazer Login</p>
               </Button>
+              {open && <Settings setOpen={setOpen} />}
             </Link>
           </>
         )}
       </UserBox>
     </Container>
+  
   )
 }
-
-
-//         <UserImg src={currentUser.img}  />
-//'https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
 
 export default Topbar

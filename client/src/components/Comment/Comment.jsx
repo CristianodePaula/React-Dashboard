@@ -1,26 +1,31 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { 
+    Container, 
+    UserImg, 
+    SpanComment, 
+    BoxInteractions 
+} from "./CommentStyle";
 
-export const Container = styled.div`
-    display: flex;
-    align-items: center;
-    margin-top: 50px;
-`
-export const UserImg = styled.img`
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-`
-export const SpanComment = styled.span``
+function Comment({ comment }) {
 
-export const BoxInteractions = styled.div``
+    const [channel, setChannel] = useState({});
+  
+    useEffect(() => {
+      const fetchComment = async () => {
+        const res = await axios.get(`/users/find/${comment.userId}`);
+        setChannel(res.data)
+      };
+      fetchComment();
+    }, []);
 
-function Comment() {
+
+    //console.log(comment)
+  
     return (
         <Container>
             <div style={{ display: 'flex' }}>
-                <UserImg src='https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' />
+                <UserImg src='' />
                 <div  style={{ display: 'flex', flexDirection: 'column', marginLeft: '10px' }}>
                     <SpanComment> <b>Beltrano</b> 1 mês </SpanComment>
                     <SpanComment>Gostei muito deste post</SpanComment>

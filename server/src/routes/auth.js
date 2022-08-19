@@ -1,5 +1,9 @@
 const express = require('express')
-const { googleAuth, signin, signup } = require("../controllers/auth.js")
+const { 
+    googleAuth, 
+    signin, 
+    signup 
+} = require("../controllers/auth.js")
 
 const router = express.Router();
 

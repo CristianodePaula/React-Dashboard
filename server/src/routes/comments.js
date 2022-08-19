@@ -1,5 +1,9 @@
 const express = require('express')
-const {  addComment, deleteComment, getComments } = require("../controllers/comment")
+const {  
+    addComment, 
+    deleteComment, 
+    getComments 
+} = require("../controllers/comment")
 const {verifyToken} = require('../verifyToken')
 const router = express.Router();
 

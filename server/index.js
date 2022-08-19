@@ -7,6 +7,8 @@ const userRoutes = require('./src/routes/users')
 const videoRoutes = require ('./src/routes/videos')
 const commentRoutes = require ('./src/routes/comments')
 const authRoutes = require ('./src/routes/auth')
+const announcementRoutes = require ('./src/routes/announcements')
+const feedbackRoutes = require ('./src/routes/feedback')
 
 const app = express()
 dotenv.config()
@@ -29,6 +31,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/videos", videoRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/announcement", announcementRoutes);
+app.use("/api/feedback", feedbackRoutes);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

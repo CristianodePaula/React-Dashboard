@@ -1,28 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Keybar from '../../components/Keybar/Keybar'
 import VideoCard from '../../components/VideoCard/VideoCard'
 import axios from 'axios'
+import {
+  Container, 
+  VideoGallery 
+} from './HomeStyle'
 
-export const Container = styled.div`
-  display: flex;  
-  background: ${({ theme }) => theme.background}
-`
-export const Wrapper = styled.div`
-  display: flex;
-`
-export const VideoGallery = styled.div`
-  display: grid;
-  justify-content: center;
-  width: 83.5vw;
-  grid-template-columns: repeat(4, 1fr);
-  overflow-y: scroll;
-  margin-top: 20px;
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`
 const Home = ({ type }) => {
 
   const [videos, setVideos] = useState([]);
@@ -38,7 +23,6 @@ const Home = ({ type }) => {
   return (
     <>
       <Container>
-        <Wrapper>
           <Sidebar />
           <div>
             <Keybar />
@@ -48,7 +32,6 @@ const Home = ({ type }) => {
               ))}
             </VideoGallery>
           </div>
-        </Wrapper>
       </Container>
     </>
   )

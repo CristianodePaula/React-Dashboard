@@ -2,8 +2,9 @@ const User = require('../models/User')
 const Video = require('../models/Video')
 const { createError } = require('../error')
 
+//userId: req.user.id,
 const addVideo = async (req, res, next) => {
-  const newVideo = new Video({ userId: req.user.id, ...req.body });
+  const newVideo = new Video({  ...req.body });
   try {
     const savedVideo = await newVideo.save();
     res.status(200).json(savedVideo);
@@ -120,7 +121,7 @@ const search = async (req, res, next) => {
   const query = req.query.q;
   try {
     const videos = await Video.find({
-      title: { $regex: query, $options: "i" }, // $regex faz a busca / $option "i"  maaísculas e minúsculas
+      title: { $regex: query, $options: "i" }, // $regex faz a busca / $option "i"  maísculas e minúsculas
     }).limit(40); // máximo de 40 
     res.status(200).json(videos);
   } catch (err) {
